@@ -1,0 +1,20 @@
+<Solution>
+    <Folder Name="/src/">
+        <Project Path="src/KarTime.Domain/KarTime.Domain.csproj" />
+        <Project Path="src/KarTime.Application/KarTime.Application.csproj" />
+        <Project Path="src/KarTime.MongoDB/KarTime.MongoDB.csproj" />
+        <Project Path="src/KarTime.Domain.Shared/KarTime.Domain.Shared.csproj" />
+        <Project Path="src/KarTime.Application.Contracts/KarTime.Application.Contracts.csproj" />
+        <Project Path="src/KarTime.HttpApi/KarTime.HttpApi.csproj" />
+        <Project Path="src/KarTime.HttpApi.Client/KarTime.HttpApi.Client.csproj" />
+        <Project Path="src/KarTime.DbMigrator/KarTime.DbMigrator.csproj" />
+        <Project Path="src/KarTime.HttpApi.Host/KarTime.HttpApi.Host.csproj" />
+    </Folder>
+    <Folder Name="/test/">
+        <Project Path="test/KarTime.Application.Tests/KarTime.Application.Tests.csproj" />
+        <Project Path="test/KarTime.TestBase/KarTime.TestBase.csproj" />
+        <Project Path="test/KarTime.Domain.Tests/KarTime.Domain.Tests.csproj" />
+        <Project Path="test/KarTime.MongoDB.Tests/KarTime.MongoDB.Tests.csproj" />
+        <Project Path="test/KarTime.HttpApi.Client.ConsoleTestApp/KarTime.HttpApi.Client.ConsoleTestApp.csproj" />
+    </Folder>
+</Solution>
