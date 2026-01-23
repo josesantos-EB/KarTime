@@ -37,6 +37,10 @@
     "Unspecified": "Sistema",
     "SeeAllUsers": "Ver todos os usuários",
     "TakePhoto": "Tirar fotos",
-    "ChoosePhoto": "Escolher Foto"
+    "ChoosePhoto": "Escolher Foto",
+    
+    "FailInsertSessionKartUsed": "Não é possível inserir sessão pois o kart escolhido já esta em outra sessão ativa.",
+    "NotFound": "{0} não encontrado(a).",
+    "SessionStillActive": "Não é possível obter relatorio detalhado de sessões ativas."
   }
 }

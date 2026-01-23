@@ -1,9 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -19,12 +16,10 @@ using KarTime.HealthChecks;
 using Microsoft.OpenApi.Models;
 using Volo.Abp;
 using Volo.Abp.Studio;
-using Volo.Abp.Account;
 using Volo.Abp.Account.Web;
 using Volo.Abp.AspNetCore.MultiTenancy;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Autofac;
-using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
@@ -32,9 +27,9 @@ using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite.Bundling;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using OpenIddict.Server;
 using Volo.Abp.AspNetCore.Serilog;
-using Volo.Abp.Identity;
 using Volo.Abp.OpenIddict;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.Studio.Client.AspNetCore;
@@ -113,7 +108,7 @@ public class KarTimeHttpApiHostModule : AbpModule
         }
 
         ConfigureStudio(hostingEnvironment);
-        ConfigureAuthentication(context);
+        ConfigureAuthentication(context, configuration);
         ConfigureUrls(configuration);
         ConfigureBundles();
         ConfigureConventionalControllers();
@@ -121,7 +116,28 @@ public class KarTimeHttpApiHostModule : AbpModule
         ConfigureSwagger(context, configuration);
         ConfigureVirtualFileSystem(context);
         ConfigureCors(context, configuration);
+        
+        context.Services.PostConfigure<OpenIddictServerOptions>(options =>
+        {
+            options.SigningCredentials.Clear();
+            options.EncryptionCredentials.Clear();
+            options.SigningCredentials.Add(
+                new SigningCredentials(
+                    new RsaSecurityKey(System.Security.Cryptography.RSA.Create(2048)),
+                    SecurityAlgorithms.RsaSha256
+                )
+            );
+
+            options.EncryptionCredentials.Add(
+                new EncryptingCredentials(
+                    new RsaSecurityKey(System.Security.Cryptography.RSA.Create(2048)),
+                    SecurityAlgorithms.RsaOAEP,
+                    SecurityAlgorithms.Aes256CbcHmacSha512
+                )
+            );
+        });
     }
+
 
     private void ConfigureStudio(IHostEnvironment hostingEnvironment)
     {
@@ -134,8 +150,16 @@ public class KarTimeHttpApiHostModule : AbpModule
         }
     }
 
-    private void ConfigureAuthentication(ServiceConfigurationContext context)
+    private void ConfigureAuthentication(ServiceConfigurationContext context, IConfiguration configuration)
     {
+        context.Services.AddAuthentication("Bearer")
+            .AddJwtBearer("Bearer", options =>
+            {
+                options.Authority = configuration["AuthServer:Authority"];
+                options.RequireHttpsMetadata = Convert.ToBoolean(configuration["AuthServer:RequireHttpsMetadata"]);
+                options.Audience = configuration["AuthServer:ApiName"];
+                options.TokenValidationParameters.ValidateIssuer = false;
+            });
         context.Services.ForwardIdentityAuthenticationForBearer(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
         context.Services.Configure<AbpClaimsPrincipalFactoryOptions>(options =>
         {
