@@ -1,8 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using KarTime.Mocks.MinioBlobs;
+using KarTime.Sessions;
+using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp;
 using Volo.Abp.Authorization;
 using Volo.Abp.Autofac;
 using Volo.Abp.BackgroundJobs;
+using Volo.Abp.BlobStoring;
 using Volo.Abp.Data;
 using Volo.Abp.Modularity;
 using Volo.Abp.Threading;
@@ -24,6 +27,8 @@ public class KarTimeTestBaseModule : AbpModule
             options.IsJobExecutionEnabled = false;
         });
 
+        context.Services.AddSingleton<IBlobContainer<SessionContainer>, MinioBlobContainerFake<SessionContainer>>();
+            
         context.Services.AddAlwaysAllowAuthorization();
     }
 

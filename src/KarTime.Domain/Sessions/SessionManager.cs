@@ -53,7 +53,7 @@ public class SessionManager: DomainService, ISessionManager
 
         var response = new SessionDetailsVo()
         {
-            Base64OfPhotoFinish = await GetBase64OfPhotoFinish(sessionId),
+            Base64OfPhotoFinish = await GetBase64OfPhotoFinishAsync(sessionId),
             EndTime = session.EndTime,
             HorsePower = session.HorsePower,
             SizeOfTrackMeters = session.SizeOfTrackMeters,
@@ -74,7 +74,7 @@ public class SessionManager: DomainService, ISessionManager
         return response;
     }
 
-    private async Task<string?> GetBase64OfPhotoFinish(Guid sessionId)
+    private async Task<string?> GetBase64OfPhotoFinishAsync(Guid sessionId)
     {
         var bytes = await _blobContainer.GetAllBytesOrNullAsync(sessionId.ToString());
         return bytes is null ? null : Convert.ToBase64String(bytes);

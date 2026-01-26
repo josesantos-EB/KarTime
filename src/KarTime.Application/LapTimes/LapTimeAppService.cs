@@ -21,7 +21,7 @@ public class LapTimeAppService: ApplicationService
     
     [Authorize]
     [HttpPost("kart/{kartNumber}/lap-time")]
-    public async Task<bool> CreateLapTimeAsync(int kartNumber, LapTimeInputDto input)
+    public async Task<LapOutputDto> CreateLapTimeAsync(int kartNumber, LapTimeInputDto input)
     {
         var session = await _sessionRepository.FindAsync(ent => ent.KartNumber == kartNumber && ent.EndTime == null)
             ?? throw new UserFriendlyException(L["NotFound", "Sessão"]);
@@ -29,6 +29,10 @@ public class LapTimeAppService: ApplicationService
         session.AddLap(input.LapTime);
         
         await _sessionRepository.UpdateAsync(session);
-        return true;
+        return new LapOutputDto()
+        {
+            LapTime = input.LapTime,
+            SessionId = session.Id,
+        };
     }
 }

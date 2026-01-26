@@ -8,24 +8,27 @@ using Microsoft.Extensions.Caching.Distributed;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Caching;
+using Volo.Abp.EventBus.Local;
 using Volo.Abp.Settings;
 
 namespace KarTime.Sessions;
 
-public class SessionAppService: ApplicationService
+public class SessionAppService: ApplicationService, ISessionAppService
 {
     private readonly ISessionRepository _sessionRepository;
     private readonly ISessionManager _sessionManager;
     private readonly ISettingProvider _settingProvider;
     private readonly IDistributedCache<SessionDetailsVo> _cache;
+    private readonly ILocalEventBus _eventBus;
     private const int DefaultSizeOfTrack = 500;
 
-    public SessionAppService(ISessionRepository sessionRepository, ISessionManager sessionManager, ISettingProvider settingProvider, IDistributedCache<SessionDetailsVo> cache)
+    public SessionAppService(ISessionRepository sessionRepository, ISessionManager sessionManager, ISettingProvider settingProvider, IDistributedCache<SessionDetailsVo> cache, ILocalEventBus eventBus)
     {
         _sessionRepository = sessionRepository;
         _sessionManager = sessionManager;
         _settingProvider = settingProvider;
         _cache = cache;
+        _eventBus = eventBus;
         LocalizationResource = typeof(KarTimeResource);
     }
     
@@ -48,6 +51,13 @@ public class SessionAppService: ApplicationService
     {
         var photoFinishStream = input.PhotoFinish?.OpenReadStream();
         var session = await _sessionManager.EndSessionAsync(kartNumber, photoFinishStream);
+        await _eventBus.PublishAsync(new EndSessionEto()
+        {
+            KartNumber = kartNumber,
+            SessionId = session.Id,
+            EndTime = session.EndTime.Value,
+            StartTime = session.StartTime
+        });
         return GetSessionOutputDto(session);
     }
     
