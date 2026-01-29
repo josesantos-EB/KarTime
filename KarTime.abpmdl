@@ -1,0 +1,109 @@
+{
+  "template": "app",
+  "imports": {
+    "Volo.Abp.LeptonXLiteTheme": {
+      "version": "5.0.2",
+      "isInstalled": true,
+      "creationTime": "01/22/2026 12:10:15 +00:00"
+    },
+    "Volo.Abp.Account": {
+      "version": "10.0.2",
+      "isInstalled": true,
+      "creationTime": "01/22/2026 12:10:15 +00:00"
+    },
+    "Volo.Abp.OpenIddict": {
+      "version": "10.0.2",
+      "isInstalled": true,
+      "creationTime": "01/22/2026 12:10:15 +00:00"
+    },
+    "Volo.Abp.Identity": {
+      "version": "10.0.2",
+      "isInstalled": true,
+      "creationTime": "01/22/2026 12:10:15 +00:00"
+    },
+    "Volo.Abp.TenantManagement": {
+      "version": "10.0.2",
+      "isInstalled": true,
+      "creationTime": "01/22/2026 12:10:15 +00:00"
+    },
+    "Volo.Abp.SettingManagement": {
+      "version": "10.0.2",
+      "isInstalled": true,
+      "creationTime": "01/22/2026 12:10:15 +00:00"
+    },
+    "Volo.Abp.PermissionManagement": {
+      "version": "10.0.2",
+      "isInstalled": true,
+      "creationTime": "01/22/2026 12:10:15 +00:00"
+    },
+    "Volo.Abp.FeatureManagement": {
+      "version": "10.0.2",
+      "isInstalled": true,
+      "creationTime": "01/22/2026 12:10:15 +00:00"
+    }
+  },
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "KarTime.Application": {
+      "path": "src/KarTime.Application/KarTime.Application.abppkg",
+      "folder": "src"
+    },
+    "KarTime.Application.Tests": {
+      "path": "test/KarTime.Application.Tests/KarTime.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "KarTime.MongoDB": {
+      "path": "src/KarTime.MongoDB/KarTime.MongoDB.abppkg",
+      "folder": "src"
+    },
+    "KarTime.MongoDB.Tests": {
+      "path": "test/KarTime.MongoDB.Tests/KarTime.MongoDB.Tests.abppkg",
+      "folder": "test"
+    },
+    "KarTime.Domain.Shared": {
+      "path": "src/KarTime.Domain.Shared/KarTime.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "KarTime.Application.Contracts": {
+      "path": "src/KarTime.Application.Contracts/KarTime.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "KarTime.HttpApi": {
+      "path": "src/KarTime.HttpApi/KarTime.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "KarTime.HttpApi.Client": {
+      "path": "src/KarTime.HttpApi.Client/KarTime.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "KarTime.TestBase": {
+      "path": "test/KarTime.TestBase/KarTime.TestBase.abppkg",
+      "folder": "test"
+    },
+    "KarTime.Domain.Tests": {
+      "path": "test/KarTime.Domain.Tests/KarTime.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "KarTime.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/KarTime.HttpApi.Client.ConsoleTestApp/KarTime.HttpApi.Client.ConsoleTestApp.abppkg",
+      "folder": "test"
+    },
+    "KarTime.DbMigrator": {
+      "path": "src/KarTime.DbMigrator/KarTime.DbMigrator.abppkg",
+      "folder": "src"
+    },
+    "KarTime.HttpApi.Host": {
+      "path": "src/KarTime.HttpApi.Host/KarTime.HttpApi.Host.abppkg",
+      "folder": "src"
+    },
+    "KarTime.Domain": {
+      "path": "src/KarTime.Domain/KarTime.Domain.abppkg",
+      "folder": "src"
+    }
+  }
+}
