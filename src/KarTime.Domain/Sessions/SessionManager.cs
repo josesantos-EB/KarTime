@@ -67,10 +67,9 @@ public class SessionManager: DomainService, ISessionManager
         if (bestLap is null)
             return response;
 
-        response.TimeOfBestLap = bestLap.TimeOfLap;
+        response.TimeOfBestLap = Round3Digits(bestLap.TimeOfLap);
         response.MileageOfBestLap = CalculateMileage(bestLap.TimeOfLap, session.SizeOfTrackMeters);
         response.NumberOfBestLap = bestLap.Number;
-
         return response;
     }
 
@@ -80,7 +79,10 @@ public class SessionManager: DomainService, ISessionManager
         return bytes is null ? null : Convert.ToBase64String(bytes);
     }
 
-    private static double CalculateMileage(double lapTime, int sizeOfTrackMeters) => sizeOfTrackMeters * 3.6 / lapTime;
+    private static decimal Round3Digits(double value) => Math.Round((decimal)value, 3);
+
+    private static decimal CalculateMileage(double lapTime, int sizeOfTrackMeters) => 
+                                        Round3Digits(sizeOfTrackMeters * 3.6 / lapTime);
     
     private static Lap? GetBestLap(List<Lap> laps)
         => laps.MinBy(ent => ent.TimeOfLap);

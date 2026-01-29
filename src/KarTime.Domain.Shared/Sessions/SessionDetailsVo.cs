@@ -11,7 +11,7 @@ public class SessionDetailsVo
     public DateTime? EndTime { get; set; }
     public int? NumberOfLaps { get; set; }
     public int? NumberOfBestLap { get; set; }
-    public double? TimeOfBestLap { get; set; }
-    public double? MileageOfBestLap { get; set; }
+    public decimal? TimeOfBestLap { get; set; }
+    public decimal? MileageOfBestLap { get; set; }
     public string? Base64OfPhotoFinish { get; set; }
 }
