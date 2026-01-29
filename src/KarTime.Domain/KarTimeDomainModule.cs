@@ -73,6 +73,5 @@ public class KarTimeDomainModule : AbpModule
                 cfg.UseMinio(m => m.CreateBucketIfNotExists = true);
             });
         });
-
     }
 }

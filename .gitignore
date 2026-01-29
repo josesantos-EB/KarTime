@@ -254,3 +254,5 @@ paket-files/
 **/wwwroot/libs
 
 **/Logs/logs.txt
+
+**/appsettings.Development.json

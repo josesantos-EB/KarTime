@@ -21,6 +21,7 @@ public class EndSessionEventHandler: ILocalEventHandler<EndSessionEto>, ITransie
 
     private void SendEmailDetails(SessionDetailsVo session)
     {
+        // Aqui poderia ser uma integração com algum serviço de notificações (Email, SMS, etc.)
         Console.WriteLine(@$"
 Melhor volta: {session.NumberOfBestLap}
 Tempo da melhor volta: {session.TimeOfBestLap}

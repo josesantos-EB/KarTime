@@ -117,6 +117,9 @@ public class KarTimeHttpApiHostModule : AbpModule
         ConfigureVirtualFileSystem(context);
         ConfigureCors(context, configuration);
         
+        // Precisei limpar as chaves de criptografia e  gerar novamente pois o MAC ficava solitando usuario e senha todas 
+        // as vezes que assinava o token, provavelmente exista alguma solução melhor onde não seja solicitado o usuario e 
+        // senha.
         context.Services.PostConfigure<OpenIddictServerOptions>(options =>
         {
             options.SigningCredentials.Clear();

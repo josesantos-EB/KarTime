@@ -33,6 +33,4 @@ public class Session: Entity<Guid>
     {
         EndTime = DateTime.Now;
     }
-
-
 }
